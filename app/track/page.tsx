@@ -64,7 +64,8 @@ export default function TrackOrderPage() {
       if (err instanceof Error) {
         setError(err.message || 'Order not found');
       } else {
-        setError('Order not found');
+        console.error('An unknown error occurred:', err);
+        setError('An unknown error occurred');
       }
     } finally {
       setLoading(false);

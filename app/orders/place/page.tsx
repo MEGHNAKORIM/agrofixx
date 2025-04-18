@@ -23,7 +23,8 @@ export default function PlaceOrderPage() {
         if (err instanceof Error) {
           setError(err.message || "Failed to fetch products");
         } else {
-          setError("Failed to fetch products");
+          setError("An unknown error occurred");
+          console.error(err);
         }
       } finally {
         setLoading(false);
