@@ -70,11 +70,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 - `GET /api/orders/:id` - Get order details
 - `PUT /api/orders/:id` - Update order status (admin)
 
-## Deployment
 
-The application is configured for deployment on Vercel:
+![image](https://github.com/user-attachments/assets/4af8d50b-dbbb-4e33-b215-6dfb276de389)
+![image](https://github.com/user-attachments/assets/9d44493f-e8bf-4bdc-ab6e-278a93c4ad65)
+![image](https://github.com/user-attachments/assets/569cc9c9-3783-4bd8-ac40-41f4875649d5)
+![image](https://github.com/user-attachments/assets/739ce4d0-96b9-4c51-9982-a4a1ec9cba62)
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Configure environment variables in Vercel dashboard
-4. Deploy!
+
+
