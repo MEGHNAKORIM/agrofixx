@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 
 import type { Product } from '.prisma/client';
-import { formatPrice } from '@/app/lib/utils';
+import { formatPrice } from '@/lib/utils';
 import { ProductForm } from '@/app/components/forms/product-form';
 import type { CreateProductInput } from '@/app/lib/types';
+import { Button } from '../../components/ui/button';
 
 export default function AdminProducts() {
   

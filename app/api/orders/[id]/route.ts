@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/app/lib/prisma';
-import { UpdateOrderStatusInput } from '@/app/lib/types';
+import { prisma } from '../../../../app/lib/prisma';
+import { UpdateOrderStatusInput } from '../../../../app/lib/types';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ): Promise<Response> {
   try {
     const order = await prisma.order.findUnique({
-      where: { id: context.params.id },
+      where: { id: params.id },
       include: {
         items: {
           include: {
@@ -35,12 +35,15 @@ export async function GET(
   }
 }
 
-export async function PUT(request: NextRequest, context: { params: { id: string } }): Promise<Response> {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+): Promise<Response> {
   try {
-    const body: UpdateOrderStatusInput = await request.json();
+    const body = (await request.json()) as UpdateOrderStatusInput;
 
     const order = await prisma.order.update({
-      where: { id: context.params.id },
+      where: { id: params.id },
       data: { status: body.status },
       include: {
         items: {

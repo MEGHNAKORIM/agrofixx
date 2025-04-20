@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { formatPrice } from '@/app/lib/utils';
+import { formatPrice } from '@/lib/utils';
 
 const ORDER_STATUSES = ["PENDING", "IN_PROGRESS", "DELIVERED", "CANCELLED"];
 

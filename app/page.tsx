@@ -2,7 +2,9 @@ import { prisma } from './lib/prisma';
 
 import { ProductCard } from './components/products/product-card';
 
-async function getProducts() {
+type ProductForCard = Omit<import('.prisma/client').Product, 'price'> & { price: number };
+
+async function getProducts(): Promise<ProductForCard[]> {
   const products = await prisma.product.findMany({
     orderBy: { name: 'asc' },
   });
@@ -27,7 +29,7 @@ export default async function Home() {
           {products.map((product) => (
             <ProductCard
               key={product.id}
-              product={{ ...product, price: Number(product.price) }}
+              product={product}
             />
           ))}
         </div>

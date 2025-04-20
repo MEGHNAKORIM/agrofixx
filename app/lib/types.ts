@@ -1,4 +1,5 @@
 import type { Product, Order, OrderStatus } from '.prisma/client';
+export type { Product } from '.prisma/client';
 
 export type ProductWithoutDates = Omit<Product, 'createdAt' | 'updatedAt'>;
 export type OrderWithoutDates = Omit<Order, 'createdAt' | 'updatedAt'>;

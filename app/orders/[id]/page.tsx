@@ -1,6 +1,6 @@
-import { prisma } from '@/app/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import type { OrderItem, OrderStatus } from '.prisma/client';
-import { formatPrice } from '@/app/lib/utils';
+import { formatPrice } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 
 interface OrderPageProps {
@@ -81,7 +81,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
                   </p>
                 </div>
                 <p className="font-medium">
-                  {formatPrice(item.quantity * item.price)}
+                  {formatPrice(Number(item.quantity) * Number(item.price))}
                 </p>
               </div>
             ))}

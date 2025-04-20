@@ -1,13 +1,14 @@
 'use client';
 import Image from 'next/image';
-import type { Product } from '.prisma/client';
+import type { Product } from '@/lib/types';
+type ProductForCard = Omit<Product, 'price'> & { price: number };
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
-import { formatPrice } from '@/app/lib/utils';
+import { formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
-  product: Product
-  onAddToCart?: (product: Product) => void;
+  product: ProductForCard;
+  onAddToCart?: (product: ProductForCard) => void;
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {

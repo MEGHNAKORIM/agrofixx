@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import type { Product } from '.prisma/client';
+import type { Product } from '@prisma/client';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { formatPrice } from '@/app/lib/utils';
-import { CreateOrderInput } from '@/app/lib/types';
+import { formatPrice } from '@/lib/utils';
+import { CreateOrderInput } from '@/lib/types';
 
 interface OrderFormProps {
   products: Product[];
@@ -51,7 +51,12 @@ export function OrderForm({ products, onSubmit }: OrderFormProps) {
   };
 
   const calculateTotal = () => {
-    return items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+    return items.reduce(
+      (total, item) =>
+        total +
+        (Number(item.product.price || 0) * Number(item.quantity || 0)),
+      0
+    );
   };
 
   const onSubmitForm = async (formData: Omit<CreateOrderInput, 'items'>) => {
