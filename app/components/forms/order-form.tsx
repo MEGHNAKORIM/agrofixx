@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import type { Product } from '@prisma/client';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { formatPrice } from '@/lib/utils';
-import { CreateOrderInput } from '@/lib/types';
+import { formatPrice } from '../../lib/utils';
+import { CreateOrderInput } from '../../lib/types';
 
 interface OrderFormProps {
   products: Product[];
-  onSubmit: (data: CreateOrderInput) => Promise<void>;
+  onSubmit: (data: CreateOrderInput) => Promise<{ id: string }>;
+  onSuccess?: (id: string) => void;
 }
 
 interface OrderItem {
@@ -17,7 +18,7 @@ interface OrderItem {
   product: Product;
 }
 
-export function OrderForm({ products, onSubmit }: OrderFormProps) {
+export function OrderForm({ products, onSubmit, onSuccess }: OrderFormProps) {
   const [items, setItems] = useState<OrderItem[]>([]);
   const { register, handleSubmit, formState: { errors } } = useForm<CreateOrderInput>();
 
@@ -59,16 +60,19 @@ export function OrderForm({ products, onSubmit }: OrderFormProps) {
     );
   };
 
-  const onSubmitForm = async (formData: Omit<CreateOrderInput, 'items'>) => {
+  const handleFormSubmit = async (formData: CreateOrderInput) => {
     if (items.length === 0) {
       alert('Please add items to your cart');
       return;
     }
-    await onSubmit({
+    const result = await onSubmit({
       ...formData,
       items: items.map(({ productId, quantity }) => ({ productId, quantity })),
     });
     setItems([]);
+    if (onSuccess) {
+      onSuccess(result.id);
+    }
   };
 
   return (
@@ -150,7 +154,7 @@ export function OrderForm({ products, onSubmit }: OrderFormProps) {
               <p className="text-xl font-bold text-right text-green-700">Total: {formatPrice(calculateTotal())}</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6 mt-6">
+            <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6 mt-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                 <input

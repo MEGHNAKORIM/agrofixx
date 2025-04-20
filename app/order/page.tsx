@@ -13,7 +13,7 @@ export default function OrderPage() {
 
   const router = useRouter();
 
-  const handleSubmit = async (data: CreateOrderInput) => {
+  const handleSubmit = async (data: CreateOrderInput): Promise<{ id: string }> => {
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -24,15 +24,14 @@ export default function OrderPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to place order');
+        throw new Error('Failed to create order');
       }
 
       const order = await response.json();
-      alert('Order placed successfully!');
-      router.push(`/orders/${order.id}`);
+      return { id: order.id };
     } catch (error) {
-      console.error('Failed to place order:', error);
-      alert('Failed to place order. Please try again.');
+      console.error('Error creating order:', error);
+      throw error;
     }
   };
 
@@ -76,7 +75,14 @@ export default function OrderPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Place an Order</h1>
-      <OrderForm products={products} onSubmit={handleSubmit} />
+      <OrderForm 
+        products={products} 
+        onSubmit={handleSubmit}
+        onSuccess={(id) => {
+          alert('Order placed successfully!');
+          router.push(`/orders/${id}`);
+        }}
+      />
     </div>
   );
 }
