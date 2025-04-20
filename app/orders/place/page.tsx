@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { OrderForm } from "@/app/components/forms/order-form";
-import type { Product } from ".prisma/client";
+import { OrderForm } from "@/components/forms/order-form";
+import type { Product } from "@prisma/client";
 
 export default function PlaceOrderPage() {
   const [success, setSuccess] = useState(false);
