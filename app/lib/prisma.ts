@@ -4,14 +4,10 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const prismaClientSingleton = () => {
-  return new PrismaClient({
-    log: ['error', 'warn'],
-    errorFormat: 'minimal',
-  });
-};
-
-export const prisma = new PrismaClient();
+export const prisma = globalForPrisma.prisma ?? new PrismaClient({
+  log: ['error', 'warn'],
+  errorFormat: 'minimal',
+});
 
 if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma;
