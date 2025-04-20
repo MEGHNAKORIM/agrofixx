@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/app/lib/prisma';
-import { CreateProductInput } from '@/app/lib/types';
+import { prisma } from '@/lib/prisma';
+import { CreateProductInput } from '@/lib/types';
 
-export async function GET() {
+export async function GET() { 
   try {
     const products = await prisma.product.findMany({
       orderBy: { name: 'asc' },

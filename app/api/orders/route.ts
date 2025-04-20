@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { CreateOrderInput } from '@/lib/types';
-import { calculateOrderTotal } from '@/lib/utils';
+import { prisma } from '../../lib/prisma';
+import { CreateOrderInput } from '../../lib/types';
+import { calculateOrderTotal } from '../../lib/utils';
 
 export async function GET() {
   try {

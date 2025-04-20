@@ -1,13 +1,9 @@
 import { prisma } from '@/lib/prisma';
-import type { OrderItem, OrderStatus } from '.prisma/client';
+import type { OrderItem, OrderStatus } from '@prisma/client';
 import { formatPrice } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 
-interface OrderPageProps {
-  params: {
-    id: string;
-  };
-}
+export type paramsType = Promise<{ id: string }>;
 
 async function getOrder(id: string) {
   const order = await prisma.order.findUnique({
@@ -28,8 +24,9 @@ async function getOrder(id: string) {
   return order;
 }
 
-export default async function OrderPage({ params }: OrderPageProps) {
-  const order = await getOrder(params.id);
+export default async function OrderPage(props: { params: paramsType }) {
+  const { id } = await props.params;
+  const order = await getOrder(id);
 
   const statusColors: Record<OrderStatus, string> = {
     PENDING: 'bg-yellow-100 text-yellow-800',

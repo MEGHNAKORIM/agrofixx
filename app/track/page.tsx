@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Button } from '../components/ui/button';
-import { prisma } from '@/lib/prisma';
 
 import { CheckCircleIcon, XCircleIcon, ClockIcon, TruckIcon } from '@heroicons/react/24/solid';
 
@@ -23,7 +22,7 @@ interface Order {
   items: OrderItem[];
 }
 
-const statusMap: Record<string, { color: string; label: string; icon: JSX.Element }> = {
+const statusMap: Record<string, { color: string; label: string; icon: React.ReactElement }> = {
   PENDING: {
     color: 'text-yellow-600',
     label: 'Pending',

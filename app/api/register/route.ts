@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/app/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import bcrypt from 'bcryptjs';
 
 function generateOTP() {
@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, otp });
   } catch (err: unknown) {
     console.error('Registration error:', err);
-    return NextResponse.json({ success: false, message: err.message || 'Server error' }, { status: 500 });
+    const errorMessage = err instanceof Error ? err.message : 'Server error';
+    return NextResponse.json({ success: false, message: errorMessage }, { status: 500 });
   }
 }

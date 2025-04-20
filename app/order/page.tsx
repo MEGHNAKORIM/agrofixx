@@ -9,6 +9,7 @@ import { CreateOrderInput } from '../lib/types';
 export default function OrderPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
