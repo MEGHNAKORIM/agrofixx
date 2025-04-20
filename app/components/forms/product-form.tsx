@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
-import { CreateProductInput } from '@/lib/types';
+import { CreateProductInput } from '../../lib/types';
 
 interface ProductFormProps {
   onSubmit: (data: CreateProductInput) => Promise<void>;
