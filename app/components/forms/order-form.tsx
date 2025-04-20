@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import type { Product } from '@prisma/client';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { formatPrice } from '@/lib/utils';
-import { CreateOrderInput } from '@/lib/types';
+import { formatPrice } from '../../lib/utils';
+import { CreateOrderInput } from '../../lib/types';
 
 interface OrderFormProps {
   products: Product[];
