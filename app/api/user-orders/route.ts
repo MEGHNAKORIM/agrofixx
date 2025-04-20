@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '../../lib/prisma';
 
 export async function GET(req: NextRequest) {
   const session = req.cookies.get('session')?.value;
@@ -17,9 +17,9 @@ export async function GET(req: NextRequest) {
   if (!user) {
     return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
   }
-  // Find orders for this user (by buyerContact == user's phone)
+  // Find orders for this user (by buyerContact == user's email)
   const orders = await prisma.order.findMany({
-    where: { buyerContact: user.phone },
+    where: { buyerContact: user.email },
     include: { items: { include: { product: true } } },
     orderBy: { createdAt: 'desc' },
   });
